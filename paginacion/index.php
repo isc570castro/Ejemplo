@@ -21,6 +21,13 @@
 		<h3> Ejemplo para git </h3>
 		<h3> Ejemplo para git2 </h3>
 		<h3> Ejemplo para git3 </h3>
+		<h3> Listado de Países </h3>
+		<h3> Ejemplo para git </h3>
+		<h3> Ejemplo para git2 </h3>
+		<h3> Ejemplo para git3 </h3>
+		<h3> Ejemplo para git </h3>
+		<h3> Ejemplo para git2 </h3>
+		<h3> Ejemplo para git3 </h3>
 		<div id="loader" class="text-center"> <img src="loader.gif"></div>
 		<div class="outer_div"></div><!-- Datos ajax Final -->
 		</div>
@@ -32,24 +39,3 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   </body>
 </html>
-	<script>
-	$(document).ready(function(){
-		load(1);
-	});
-
-	function load(page){
-		var parametros = {"action":"ajax","page":page};
-		$("#loader").fadeIn('slow');
-		$.ajax({
-			url:'paises_ajax.php',
-			data: parametros,
-			 beforeSend: function(objeto){
-			$("#loader").html("<img src='loader.gif'>");
-			},
-			success:function(data){
-				$(".outer_div").html(data).fadeIn('slow');
-				$("#loader").html("");
-			}
-		})
-	}
-	</script>

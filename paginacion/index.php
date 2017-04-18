@@ -10,6 +10,12 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
   </head>
+  <style type="text/css">
+  	h3{
+  		color:blue;
+  		text-align: center;
+  	}
+  </style>
   <body>
     <div class="container-fluid">
 	  <div class="row">

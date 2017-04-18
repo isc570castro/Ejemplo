@@ -20,6 +20,20 @@ git reset --mixed //
 git reset --hard //Borra todo y comits y todo
 git log > commits.txt //Crea un archivo txt de todos los comit
 
+git remote add origin https://github.com/isc570castro/Ejemplo.git //Conectar un proyecto que ya esta hecho a github
+git remote remove origin //Para quitar la conexion de github
+
+
+Para fusionar ramas
+
+1.- Posicionarse en la rama que va a abosrver la rama, en este caso master
+2.- git merge ramaAabsorver
+
+Para elimar una rama que no funciono
+1.- Posicionarse en master
+2.- git branch -D nombreramaquenofunciono
+
+
 CRUD Create Read Update Delete
 dom Document Object Model se guardan los archivos que contienen html que ayuda a hacer una pagina (vistas, imagenes, librerias)
 

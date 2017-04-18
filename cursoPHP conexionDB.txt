@@ -3,15 +3,17 @@ git init //Para comenzar a monitoriar el proyecto, con este comando se crea el m
 git clone https://gitlab.com/romanperez/ejercicio1PHP.git (para clonar proyecto)
 git branch //para ver las ramas actuales
 git branch nombre_rama_nueva - para hacer una nueva rama 
+git branch -A //Ver todas las ramas hasta la rama oculta (origin/master)
 git checkout master (cambiar de rama en vez de master se escribe la rama que quieres cambiarte)
 git status- para ver estados en la rama (lo que se ha modificado o agrado)
 git add . (agregar todo)
 git add archivoasubir.extenciondelarchivo //Para agregar un archivo especifico
 git commit -m "Comentario" (Agregar comentario de lo que hizo)
-git push origin formularios_ACS (Confirmar envio al master los cambios hechos)
+git commit --amend -m "Cambio de comentario" //Cambiar el comentario del ultimo commit
+git push origin formularios_ACS //Enviar la rama a github
+git push origin -f //Forsar un envio a github
 git pull origin master (actualizar las ramas que hay en el master)
 git branch -D nombre_rama     - Para eliminar una rama GIT
-
 git log //Para ver todos los commit realizados y su codigo encriptado
 git checkout codigoencriptadodelcomit //Para viajar al commit que decemos para checar codigo anterior
 git checkout master //Volver al ultimo commit 
@@ -21,82 +23,45 @@ git reset --hard //Borra todo y comits y todo
 git log > commits.txt //Crea un archivo txt de todos los comit
 
 git remote add origin https://github.com/isc570castro/Ejemplo.git //Conectar un proyecto que ya esta hecho a github
-git remote remove origin //Para quitar la conexion de github
+git remote -v //Para ver en que repositorio estamos trabajando
+git remote remove origin //Para quitar la conexion del repositorio al que estamos apuntados
 
-
-Para fusionar ramas
-
+Para fusionar ramas:
 1.- Posicionarse en la rama que va a abosrver la rama, en este caso master
 2.- git merge ramaAabsorver
 
-Para elimar una rama que no funciono
+Para elimar una rama que no funciono o ya no se ocupa:
 1.- Posicionarse en master
 2.- git branch -D nombreramaquenofunciono
 
 
-CRUD Create Read Update Delete
-dom Document Object Model se guardan los archivos que contienen html que ayuda a hacer una pagina (vistas, imagenes, librerias)
+WORKFLOWS
+Para obtener los cambios que un miembro ha realizado en github
+1.- git fetch origin //Para pasar los cambios a la rama oculta
+2.- git marge origin/master //Pasar los cambios de la rama oculta a la rama master
+3.- Ahora ya se tiene que tener los cambios con los comits que el miembro del equipo ha realizado
 
-Para actualizar la rama de master cambiarse a master y aplicar git pull origin master
+TAGS
+git tag -a v0.8 -m "Version 0.8 de nuestro proyecto"  //Asginar una version al ultimo commit realizado
+git tag -a v0-1 -m "Version 0.1 de nuestro proyecto " c78cb0bfd985e6ca0d48e403f70f6944eb8db5bb //Asignar una version a un commit especifico
+git push origin v0.8 //Subir un tag a github
+git push origin --tags //Para subir todos las tags
 
-HACER LA CONEXION BASE DE DATOS EN PHP
+Notas:
+Pueden haber 50 commits y el 50 puede ser la version 1 de pende como se requiera
 
-<?php
+No se pueden subir cambios si ya hay cambios en el github de otro miembro  para esto
+hay que realizar WORKFLOWS
 
-Class Conexion{
+Cuando hay un conflicto al descargar los cambios realizados por otro miembro es porque se
+trabajo con las mismas lineas por lo que hay que checar el codigo y donde dice HEAD es nuestro codigo
+y donde dice origin/master es el codigo que estamos descargando,  hay que dejar el que nos sirva 
+y hacer un commit nosotros y un push para mandar el nuevo codigo corregido y el usuario que habia realizado
+esos cambiso que se descargaron con conflictos debe volver a descargar el codigo corregido con 
+los puntos de workflow
 
-function conectarse(){
-	//if (!($link=mysql_connect("10.221.11.4","root","CONTRASEÑA")))
-  				
-    if (!($link=mysql_connect("localhost","root","")))
-	{
-		echo "Error en la conexion.";
-		exit();
-	}
-	if (!mysql_select_db("sicsog",$link))
-	{
-		echo "Error seleccionando la base de datos.";
-		exit();
-	}
+DOMINIOS CON GITHUB
 
-
-tove lo
-	return $link;
-}
-
-//Funcion para traer todos los compos de una tabla en la DB
-public function getColumns($tabla) {
-        $fieldnames = array();
-
-        $x = new Conexion();
-        $conn = $x->conectarse();
-
-        $result = mysql_query("SHOW COLUMNS FROM " . $tabla, $conn);
-
-
-        if (!$result) {
-            echo 'No se pudo ejecutar la consulta : ' . mysql_error();
-            return false;
-        }
-
-        if (mysql_num_rows($result) > 0) {
-            while ($row = mysql_fetch_assoc($result)) {
-                /**QUITAR ESTA VALIDACION PARA SISTEMAS DIFERENTES A SICU*/
-                if($row['Field']!=="oncreate"){
-                    $fieldnames[] = $row['Field'];
-                }
-            }
-        }
-        $x->liberaRecurso($result);
-        //$x->desconectarse($conn);
-        return $fieldnames;
-    }
-
-
-public static function liberaRecurso($res) {
-        mysql_free_result($res);
-    }
-
-    
-}//class Conexion
-?>
+Crear repositorio con los siguientes parametros
+nombredeusuariouorganizacion.github.io
+Crear git branch gh-pages

@@ -1,0 +1,78 @@
+GIT
+git clone https://gitlab.com/romanperez/ejercicio1PHP.git (para clonar proyecto)
+git branch nombre_rama_nueva - para hacer una nueva rama 
+git checkout master (cambiar de rama en vez de master se escribe la rama que quieres cambiarte)
+git status- para ver estados en la rama (lo que se ha modificado o agrado)
+git add . (agregar todo)
+git commit -m "Comentario" (Agregar comentario de lo que hizo)
+git push origin formularios_ACS (Confirmar envio al master los cambios hechos)
+git pull origin master (actualizar las ramas que hay en el master)
+git branch -D nombre_rama     - Para eliminar una rama GIT
+git checkout -- nombrearchivo (Para desaser cambios que se allan trabajado en el directorio)
+
+CRUD Create Read Update Delete
+dom Document Object Model se guardan los archivos que contienen html que ayuda a hacer una pagina (vistas, imagenes, librerias)
+
+Para actualizar la rama de master cambiarse a master y aplicar git pull origin master
+
+HACER LA CONEXION BASE DE DATOS EN PHP
+
+<?php
+
+Class Conexion{
+
+function conectarse(){
+	//if (!($link=mysql_connect("10.221.11.4","root","CONTRASEÑA")))
+  				
+    if (!($link=mysql_connect("localhost","root","")))
+	{
+		echo "Error en la conexion.";
+		exit();
+	}
+	if (!mysql_select_db("sicsog",$link))
+	{
+		echo "Error seleccionando la base de datos.";
+		exit();
+	}
+
+
+tove lo
+	return $link;
+}
+
+//Funcion para traer todos los compos de una tabla en la DB
+public function getColumns($tabla) {
+        $fieldnames = array();
+
+        $x = new Conexion();
+        $conn = $x->conectarse();
+
+        $result = mysql_query("SHOW COLUMNS FROM " . $tabla, $conn);
+
+
+        if (!$result) {
+            echo 'No se pudo ejecutar la consulta : ' . mysql_error();
+            return false;
+        }
+
+        if (mysql_num_rows($result) > 0) {
+            while ($row = mysql_fetch_assoc($result)) {
+                /**QUITAR ESTA VALIDACION PARA SISTEMAS DIFERENTES A SICU*/
+                if($row['Field']!=="oncreate"){
+                    $fieldnames[] = $row['Field'];
+                }
+            }
+        }
+        $x->liberaRecurso($result);
+        //$x->desconectarse($conn);
+        return $fieldnames;
+    }
+
+
+public static function liberaRecurso($res) {
+        mysql_free_result($res);
+    }
+
+    
+}//class Conexion
+?>
